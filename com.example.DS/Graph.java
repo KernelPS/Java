@@ -11,7 +11,7 @@ public class Graph {
 	private List<Vertex> V=new ArrayList<Graph.Vertex>();
 	private List<Edge> E=new ArrayList<Graph.Edge>();//default;
 	public enum TYPE{
-		DIRECTED,UNDIRECTED
+		DIRECTED,UNDIRECTED /*Graph are of two types directed and undirected.*/
 	}
 	public Graph(TYPE type)
 	{
@@ -21,6 +21,11 @@ public class Graph {
 	public Graph(){
 
 	}
+	 /**
+	* Creates a Graph from the vertices and edges. This defaults to an undirected Graph
+	*
+	* NOTE: Duplicate vertices and edges ARE allowed.
+	* NOTE: Copies the vertex and edge objects but does NOT store the Collection parameters itself.*//
 	public Graph(TYPE type,Collection<Vertex> V,Collection<Edge> E)
 	{
 		this(type);
@@ -36,9 +41,7 @@ public class Graph {
 			from.addEdge(e);
 			if(this.type==TYPE.UNDIRECTED)
 			{
-				//Edge duplicate=new Edge(e);
 				to.addEdge(e);
-				//this.E.add(duplicate);
 			}
 		}
 	}
