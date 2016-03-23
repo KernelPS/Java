@@ -17,7 +17,7 @@ public class Graph {
 	{
 		this.type=type;
 	}
-	private TYPE type=TYPE.UNDIRECTED;
+	private TYPE type=TYPE.UNDIRECTED ;
 	public Graph(){
 
 	}
