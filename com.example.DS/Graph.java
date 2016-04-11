@@ -10,22 +10,21 @@ import java.util.List;
 public class Graph {
 	private List<Vertex> V=new ArrayList<Graph.Vertex>();
 	private List<Edge> E=new ArrayList<Graph.Edge>();//default;
+	private  TYPE type=TYPE.UNDIRECTED;
 	public enum TYPE{
-		DIRECTED,UNDIRECTED /*Graph are of two types directed and undirected.*/
+		DIRECTED,UNDIRECTED
 	}
 	public Graph(TYPE type)
 	{
 		this.type=type;
 	}
-	private TYPE type=TYPE.UNDIRECTED ;
 	public Graph(){
 
 	}
-	 /**
-	* Creates a Graph from the vertices and edges. This defaults to an undirected Graph
-	*
-	* NOTE: Duplicate vertices and edges ARE allowed.
-	* NOTE: Copies the vertex and edge objects but does NOT store the Collection parameters itself.*//
+	public TYPE getType()
+	{
+		return  type;
+	}
 	public Graph(TYPE type,Collection<Vertex> V,Collection<Edge> E)
 	{
 		this(type);
@@ -41,7 +40,9 @@ public class Graph {
 			from.addEdge(e);
 			if(this.type==TYPE.UNDIRECTED)
 			{
+				//Edge duplicate=new Edge(e);
 				to.addEdge(e);
+				//this.E.add(duplicate);
 			}
 		}
 	}
@@ -51,6 +52,7 @@ public class Graph {
 	}
 	public static class Vertex implements Comparable<Vertex>{
 		int index;
+		int key;
 		List<Edge> edges =new ArrayList<Graph.Edge>();
 		public Vertex(int index) {
 			this.index=index;
@@ -64,6 +66,14 @@ public class Graph {
 		public int getIndex()
 		{
 			return index;
+		}
+		public void setKey(int key)
+		{
+			this.key=key;
+		}
+		public int getKey()
+		{
+			return key;
 		}
 		public static  Vertex getVertexAt(int index,Collection<Vertex> V)
 		{
@@ -115,7 +125,7 @@ public class Graph {
 			Iterator<Edge> iterator2=e1.edges.iterator();
 			while(iterator.hasNext() && iterator.hasNext())
 			{
-				if(!(iterator.next().cost!=iterator2.next().cost))
+				if((iterator.next().cost!=iterator2.next().cost))
 					return false;
 
 
@@ -182,5 +192,49 @@ public class Graph {
 			return 0;
 		}
 
+	}
+	public static class CostPathPair{
+		private int cost;
+		private List<Edge> path=null;
+		public CostPathPair(int cost,List<Edge> path)
+		{
+			this.cost=cost;
+			this.path=path;
+		}	
+		public int getCost()
+		{
+			return cost;
+		}
+		public List<Edge> getPath()
+		{
+			return path;
+		}
+		public void setCost(int cost)
+		{
+			this.cost=cost;
+		}
+		public void calculateCost()
+		{
+			for(Graph.Edge e:path)
+			{
+				cost=cost+e.getCost();
+			}
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if(! (obj instanceof CostPathPair))
+				return false;
+			CostPathPair pair=(CostPathPair)obj;
+			if(this.cost!=pair.cost)
+				return false;
+			Iterator<Edge> it1=this.getPath().iterator();
+			Iterator<Edge> it2=pair.getPath().iterator();
+			while(it1.hasNext() &&it2.hasNext())
+			{
+				if(!it1.next().equals(it2.next()))
+					return false;
+			}
+			return true;
+		}
 	}
 }
