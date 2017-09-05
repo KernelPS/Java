@@ -1,7 +1,11 @@
 import java.util.Random;
 import java.util.Scanner;
 
-
+/*Red black tree implementation.
+* This one is Left leaning red-black tree.A red black tree with red nodes in left leaning position
+* SOURCE - https://www.youtube.com/watch?v=lKmLBOJXZHI
+* 
+*/
 public class RedBlackTree {
 	public static final boolean RED=true;
 	public static final boolean BLACK=false;
