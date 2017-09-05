@@ -28,6 +28,15 @@ public class RedBlackTree {
 		if(cmp<0)h.left=createTree(h.left, val);
 		else if(cmp>0)h.right=createTree(h.right, val);
 		else if(cmp==0)h.val=val;
+		/*
+		  The order in which below operations are placed is
+		  also important.
+		  If we hit the second 'if' condition,we might end up
+		  with two red siblings hence flipcolor() has been
+		  placed at the end.
+		  Same way If we do rotate left then we might end up with
+		  (left,left.left) situation hence it is second condition.
+		*/
 		if(!isRed(h.left)&& isRed(h.right))
 			h=rotateLeft(h);
 		if(isRed(h.left) && isRed(h.left.left))
