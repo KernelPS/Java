@@ -1,1 +1,1 @@
-This repository contains different algorithms/problem-statements implemented in Java.
+Assignments implemented during coursera course - https://www.coursera.org/learn/algorithms-part1
